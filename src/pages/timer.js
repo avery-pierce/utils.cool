@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Layout from '../components/Layout'
+import useCurrentDate from "../hooks/useCurrentDate"
 
-const Timer = ({location}) => {
+const Timer = () => {
   const [startDate, setStartDate] = useState(null)
   const [stopDate, setStopDate] = useState(null)
   
@@ -29,22 +30,8 @@ const Timer = ({location}) => {
   )
 }
 
-function useSystemClock(refreshRateHz = 60) {
-  const [date, setDate] = useState(new Date())
-
-  useEffect(() => {
-    const handle = setInterval(() => {
-      setDate(new Date())
-    }, 1000/refreshRateHz)
-
-    return () => clearInterval(handle)
-  }, [refreshRateHz])
-
-  return date
-}
-
 function useSecondsElapsed(startDate, stopDate) {
-  const currentDate = useSystemClock(30)
+  const currentDate = useCurrentDate(30)
 
   if (!startDate) {
     return 0;
