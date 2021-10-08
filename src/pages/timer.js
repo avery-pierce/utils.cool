@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import Layout from '../components/Layout'
+import CoolMobileFullscreenLayout from '../components/CoolMobileFullscreenLayout';
 import useCurrentDate from "../hooks/useCurrentDate"
+import CoolText, { CoolTitle } from '../components/CoolText';
 
 const Timer = () => {
   const [startDate, setStartDate] = useState(null)
@@ -30,22 +32,65 @@ const Timer = () => {
   const isTimerRunning = (!!startDate && !stopDate)
 
   return (
-    <Layout>
-      <h1>Timer</h1>
-      <div>
-        {!isTimerRunning && <button onClick={onStart}>Start</button>}
-        {isTimerRunning && <button onClick={onTapLap}>Lap</button>}
-        {isTimerRunning && <button onClick={onStop}>Stop</button>}
+    <CoolMobileFullscreenLayout>
+      <div style={{ padding: "1em", flexGrow: 1 }}>
       </div>
-      <p>{elapsed} seconds elapsed</p>
-      <ol>
-        {laps.map(lapTime => (
-          <li>
-            {deltaS(startDate, lapTime)}s
-          </li>
-        ))}
-      </ol>
-    </Layout>
+      <div style={{ padding: "1em" }}>
+          {laps.map(lapTime => (
+              <CoolText style={{display: "block"}}>{deltaS(startDate, lapTime)}s</CoolText>
+          ))}
+      </div>
+      <div style={{ padding: "1em" }}>
+        <CoolText bold style={{
+          display: "block",
+          textAlign: "center",
+          fontSize: "60pt",
+        }}>{formatTimeInterval(elapsed)}</CoolText>
+      </div>
+      <StopwatchControls
+        onStart={onStart}
+        onStop={onStop}
+        onLap={onTapLap}
+        isTimerRunning={isTimerRunning} />
+    </CoolMobileFullscreenLayout>
+  )
+}
+
+const secondFormatter = new Intl.NumberFormat("en-US", { 
+  minimumIntegerDigits: 2, 
+  minimumFractionDigits: 2, 
+  maximumFractionDigits: 2,
+})
+
+function formatTimeInterval(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  const formattedSeconds = secondFormatter.format(remainingSeconds)
+  return `${minutes}:${formattedSeconds}`
+}
+
+function StopwatchControls({ onStart, onStop, onLap, isTimerRunning }) {
+  return(
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      {!isTimerRunning && <CoolButton onClick={onStart} style={{ flex: 1, margin: "1em", backgroundColor: "green" }}>Start</CoolButton>}
+      {isTimerRunning && <CoolButton onClick={onLap} style={{ flex: 1, margin: "1em", backgroundColor: "blue" }}>Lap</CoolButton>}
+      <CoolButton disabled={!isTimerRunning} onClick={onStop} style={{ flex: 1, margin: "1em", marginLeft: 0, backgroundColor: "red" }}>Stop</CoolButton>
+    </div>
+  )
+}
+
+function CoolButton({ children, onClick, style, disabled, ...props}) {
+  return (
+    <button onClick={onClick} style={{
+      height: "7em",
+      borderRadius: 8,
+      fontSize: "15pt",
+      border: "none",
+      textTransform: "uppercase",
+      fontWeight: "bold",
+      opacity: disabled ? 0.4 : 1.0,
+      ...style,
+    }}>{children}</button>
   )
 }
 

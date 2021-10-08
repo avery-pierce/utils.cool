@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Roboto:wght@400;500&display=swap');
+
+html {
+  background: linear-gradient(180deg, #5F6DEB 0%, #A976DD 52.6%, #D66D86 100%);
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+}
