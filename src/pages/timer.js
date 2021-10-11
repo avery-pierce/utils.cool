@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import Layout from '../components/Layout'
 import CoolMobileFullscreenLayout from '../components/CoolMobileFullscreenLayout';
 import useCurrentDate from "../hooks/useCurrentDate"
-import CoolText, { CoolTitle } from '../components/CoolText';
+import CoolText from '../components/CoolText';
 
 const Timer = () => {
   const [startDate, setStartDate] = useState(null)
@@ -29,6 +28,8 @@ const Timer = () => {
     })
   }, [])
 
+  const lapD = lapDeltas(startDate, laps)
+
   const isTimerRunning = (!!startDate && !stopDate)
 
   return (
@@ -36,9 +37,16 @@ const Timer = () => {
       <div style={{ padding: "1em", flexGrow: 1 }}>
       </div>
       <div style={{ padding: "1em" }}>
-          {laps.map(lapTime => (
-              <CoolText style={{display: "block"}}>{deltaS(startDate, lapTime)}s</CoolText>
+        <div style={{
+          background: "rgba(233, 233, 233, 0.65)",
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
+          borderRadius: 8,
+          padding: "1em",
+        }}>
+          {lapD.map((lapTime, i) => (
+            <CoolText style={{display: "block", color: "black"}}>{i+1}. {lapTime.duration}ms ({lapTime.delta})</CoolText>
           ))}
+        </div>
       </div>
       <div style={{ padding: "1em" }}>
         <CoolText bold style={{
@@ -92,6 +100,35 @@ function CoolButton({ children, onClick, style, disabled, ...props}) {
       ...style,
     }}>{children}</button>
   )
+}
+
+function lapDeltas(startTime, lapTimes) {
+  const lapDurations = lapTimes.map((date, i, allTimes) => {
+    const previousStop = (i === 0 ? startTime : allTimes[i - 1])
+    const lapDuration = date.getTime() - previousStop.getTime()
+    return {
+      date,
+      duration: lapDuration,
+    }
+  })
+  return lapDurations.map((duration, i, allDurations) => {
+    if (i === 0) {
+      return {
+        ...duration,
+        delta: null,
+      }
+    } else {
+      console.log("d", duration)
+      const prevDuration = allDurations[i - 1]
+      console.log("prev", prevDuration)
+      const delta = duration.duration - prevDuration.duration
+      console.log("delta", delta)
+      return {
+        ...duration,
+        delta,
+      }
+    }
+  })
 }
 
 function deltaS(date1, date2) {
