@@ -34,9 +34,9 @@ const Timer = () => {
 
   return (
     <CoolMobileFullscreenLayout>
-      <div style={{ padding: "1em", flexGrow: 1 }}>
+      <div style={{ flexGrow: 1 }}>
       </div>
-      <div style={{ padding: "1em" }}>
+      <div style={{ padding: "1em", flexShrink: 2 }}>
         <div style={{
           background: "rgba(233, 233, 233, 0.65)",
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
@@ -137,8 +137,28 @@ function lapDeltas(startTime, lapTimes) {
 
 function LapDetail({ index, timestamp, durationSeconds, deltaSeconds }) {
   return (
-    <div>
-      <CoolText style={{display: "block", color: "black"}}>{index+1}. {durationSeconds}s ({deltaSeconds})</CoolText>
+    <div style={{
+      display: "flex",
+      flexDirection: "row",
+      margin: "0.6em auto",
+    }}>
+      <div style={{
+        paddingRight: "0.4em",
+        marginRight: "0.4em",
+        borderRight: "solid 0.5px rgba(0, 0, 0, 0.5)",
+      }}>
+        <CoolText style={{ color: "black" }}>{index+1}</CoolText>
+      </div>
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+      }}>
+        <span style={{fontSize: "1.2em"}}>
+          <CoolText style={{color: "black", fontWeight: "bold", marginRight: "0.4em"}}>{durationSeconds}s</CoolText>
+          <CoolText style={{color: "black" }}>(<CoolText style={{ color: deltaSeconds > 0 ? "red" : "green" }}>{deltaSeconds}</CoolText>)</CoolText>
+        </span>
+        <CoolText style={{color: "black", opacity: 0.6}}>{timestamp.toLocaleString()}</CoolText>
+      </div>
     </div>
   )
 }
