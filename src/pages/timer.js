@@ -44,7 +44,11 @@ const Timer = () => {
           padding: "1em",
         }}>
           {lapD.map((lapTime, i) => (
-            <CoolText style={{display: "block", color: "black"}}>{i+1}. {lapTime.duration}ms ({lapTime.delta})</CoolText>
+            <LapDetail 
+              index={i} 
+              durationSeconds={lapTime.duration / 1000} 
+              deltaSeconds={lapTime.delta / 1000} 
+              timestamp={lapTime.date} />
           ))}
         </div>
       </div>
@@ -129,6 +133,14 @@ function lapDeltas(startTime, lapTimes) {
       }
     }
   })
+}
+
+function LapDetail({ index, timestamp, durationSeconds, deltaSeconds }) {
+  return (
+    <div>
+      <CoolText style={{display: "block", color: "black"}}>{index+1}. {durationSeconds}s ({deltaSeconds})</CoolText>
+    </div>
+  )
 }
 
 function deltaS(date1, date2) {
