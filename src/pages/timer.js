@@ -122,11 +122,8 @@ function lapDeltas(startTime, lapTimes) {
         delta: null,
       }
     } else {
-      console.log("d", duration)
       const prevDuration = allDurations[i - 1]
-      console.log("prev", prevDuration)
       const delta = duration.duration - prevDuration.duration
-      console.log("delta", delta)
       return {
         ...duration,
         delta,
