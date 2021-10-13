@@ -24,24 +24,28 @@ export default function useLocalStorageState(key, defaultValue, serialize = (v) 
 
 /// Deserialize the json object stored in local storage
 function getLocalObject(key) {
-  const value = localStorage.getItem(key)
+  if (typeof window === "undefined") return null
+  const value = window.localStorage.getItem(key)
   return JSON.parse(value)
 }
 
 /// Returns `true` if this key has never been populated.
 function isLocalObjectPopulated(key) {
-  return localStorage.getItem(key) !== null
+  if (typeof window === "undefined") return false
+  return window.localStorage.getItem(key) !== null
 }
 
 /// Set a JSON object to local storage state
 function setLocalObject(key, obj) {
+  if (typeof window === "undefined") return
   const stringified = JSON.stringify(obj)
-  return localStorage.setItem(key, stringified)
+  return window.localStorage.setItem(key, stringified)
 }
 
 /// Removes the value at this key from storage
 function removeLocalObject(key) {
-  return localStorage.removeItem(key)
+  if (typeof window === "undefined") return
+  return window.localStorage.removeItem(key)
 }
 
 export const dateSerilaizer = (date) => {
