@@ -1808,7 +1808,7 @@ function CoolTitle({children,style}){return/*#__PURE__*/React.createElement("h1"
 function useLocalStorageState(key,defaultValue,serialize=v=>v,deserialize=v=>v){// getLocalObject doesn't differentiate between explicitly setting null
 // and state that's never been set. Use isLocalObjectPopulated to affirmatively
 // determine whether state has ever been set.
-const initialValue=isLocalObjectPopulated(key)?deserialize(getLocalObject(key)):defaultValue;const{0:state,1:setState}=(0,index_js_.useState)(initialValue);const setLocalStorageState=(0,index_js_.useCallback)(newValue=>{const normalizedValue=serialize(newValue);setLocalObject(key,normalizedValue);setState(newValue);},[]);const resetLocalStorageState=(0,index_js_.useCallback)(()=>{removeLocalObject(key);},[]);return[state,setLocalStorageState,resetLocalStorageState];}/// Deserialize the json object stored in local storage
+const initialValue=(0,index_js_.useMemo)(()=>{return isLocalObjectPopulated(key)?deserialize(getLocalObject(key)):defaultValue;},[key,defaultValue]);const{0:state,1:setState}=(0,index_js_.useState)(initialValue);const setLocalStorageState=(0,index_js_.useCallback)(newValue=>{const normalizedValue=serialize(newValue);setLocalObject(key,normalizedValue);setState(newValue);},[]);const resetLocalStorageState=(0,index_js_.useCallback)(()=>{removeLocalObject(key);},[]);return[state,setLocalStorageState,resetLocalStorageState];}/// Deserialize the json object stored in local storage
 function getLocalObject(key){const value=localStorage.getItem(key);return JSON.parse(value);}/// Returns `true` if this key has never been populated.
 function isLocalObjectPopulated(key){return localStorage.getItem(key)!==null;}/// Set a JSON object to local storage state
 function setLocalObject(key,obj){const stringified=JSON.stringify(obj);return localStorage.setItem(key,stringified);}/// Removes the value at this key from storage
@@ -3257,7 +3257,7 @@ module.exports = JSON.parse('{"name":"gatsby","description":"Blazing fast modern
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"polyfill":["/polyfill-3fd9aed4207c4e72e4c6.js"],"app":["/app-01d3d47974558a5d236c.js"],"component---src-pages-index-js":["/component---src-pages-index-js-ccfe0283b5037be0df72.js"],"component---src-pages-timer-js":["/component---src-pages-timer-js-44efb9bf25b405ff9fb5.js"]}');
+module.exports = JSON.parse('{"polyfill":["/polyfill-3fd9aed4207c4e72e4c6.js"],"app":["/app-01d3d47974558a5d236c.js"],"component---src-pages-index-js":["/component---src-pages-index-js-ccfe0283b5037be0df72.js"],"component---src-pages-timer-js":["/component---src-pages-timer-js-b7fe076d3bc52d2cb3ac.js"]}');
 
 /***/ })
 
