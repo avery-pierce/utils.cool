@@ -10,7 +10,8 @@
   },
   "scripts": {
     "deploy": "gatsby build --prefix-paths; gh-pages -d public",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "develop": "gatsby develop"
   },
   "homepage": "http://avery-pierce.github.io/utils.cool",
   "devDependencies": {
