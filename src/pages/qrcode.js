@@ -34,7 +34,7 @@ const QrCode = () => {
         maxWidth: 600,
         margin: "auto"
       }}>
-        <input type="text" onChange={onTextChange} value={text} style={{
+        <input type="text" onChange={onTextChange} value={text} placeholder="https://utils.cool" style={{
           fontSize: "1.4em",
           borderRadius: 12,
           border: "none",

@@ -10,7 +10,10 @@ const Home = () => {
       margin: "auto",
     }}>
       <CoolTitle style={{ textAlign: "center", }}>UTILS.COOL</CoolTitle>
-      <CoolLink to='/timer'>TIMER</CoolLink>
+      <div>
+        <CoolLink to='/timer'>TIMER</CoolLink>
+        <CoolLink to='/qrcode'>QR CODE</CoolLink>
+      </div>
     </div>
   )
 }
@@ -23,7 +26,8 @@ function CoolLink({ to, children }) {
         padding: "0.8em",
         borderRadius: 12,
         textAlign: "center",
-        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)" ,
+        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
+        marginBottom: "0.6em"
       }}>
         <CoolText bold style={{ 
           fontSize: "1.4em", 
