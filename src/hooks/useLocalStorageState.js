@@ -54,6 +54,7 @@ export const dateSerilaizer = (date) => {
 }
 
 export const dateDeserializer = (ms) => {
+  if (ms === null) { return null }
   return new Date(ms)
 }
 
