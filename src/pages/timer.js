@@ -2,28 +2,7 @@ import React, { useCallback } from 'react';
 import CoolMobileFullscreenLayout from '../components/CoolMobileFullscreenLayout';
 import useCurrentDate from "../hooks/useCurrentDate"
 import CoolText from '../components/CoolText';
-import useLocalStorageState from '../hooks/useLocalStorageState';
-
-const dateSerilaizer = (date) => {
-  if (date === null) { return null }
-  return date.getTime()
-}
-
-const dateDeserializer = (ms) => {
-  return new Date(ms)
-}
-
-const arraySerializer = (elementSerializer) => {
-  return (array) => {
-    return array.map(elementSerializer)
-  }
-}
-
-const arrayDeserializer = (elementDeserializer) => {
-  return (array) => {
-    return array.map(elementDeserializer)
-  }
-}
+import useLocalStorageState, { dateSerilaizer, dateDeserializer, arraySerializer, arrayDeserializer } from '../hooks/useLocalStorageState';
 
 const Timer = () => {
   const [startDate, setStartDate] = useLocalStorageState("timer.startDate", null, dateSerilaizer, dateDeserializer)

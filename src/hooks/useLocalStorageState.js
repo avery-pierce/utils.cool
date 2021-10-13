@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react"
 
-
 /// Works like `useState`, except values are persisted to localStorage.
 export default function useLocalStorageState(key, defaultValue, serialize = (v) => v, deserialize = (v) => v) {
 
@@ -45,3 +44,23 @@ function removeLocalObject(key) {
   return localStorage.removeItem(key)
 }
 
+export const dateSerilaizer = (date) => {
+  if (date === null) { return null }
+  return date.getTime()
+}
+
+export const dateDeserializer = (ms) => {
+  return new Date(ms)
+}
+
+export const arraySerializer = (elementSerializer) => {
+  return (array) => {
+    return array.map(elementSerializer)
+  }
+}
+
+export const arrayDeserializer = (elementDeserializer) => {
+  return (array) => {
+    return array.map(elementDeserializer)
+  }
+}
