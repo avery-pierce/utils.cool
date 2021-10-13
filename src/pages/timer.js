@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import CoolMobileFullscreenLayout from '../components/CoolMobileFullscreenLayout';
 import useCurrentDate from "../hooks/useCurrentDate"
 import CoolText from '../components/CoolText';
@@ -64,6 +64,7 @@ const Timer = () => {
         }}>
           {lapD.map((lapTime, i) => (
             <LapDetail 
+              key={lapTime.date.getTime()}
               index={i} 
               durationSeconds={lapTime.duration / 1000} 
               deltaSeconds={lapTime.delta / 1000} 
@@ -110,7 +111,7 @@ function StopwatchControls({ onStart, onStop, onLap, isTimerRunning }) {
   )
 }
 
-function CoolButton({ children, onClick, style, disabled, ...props}) {
+function CoolButton({ children, onClick, style, disabled }) {
   return (
     <button onClick={onClick} style={{
       height: "7em",
@@ -177,11 +178,6 @@ function LapDetail({ index, timestamp, durationSeconds, deltaSeconds }) {
       </div>
     </div>
   )
-}
-
-function deltaS(date1, date2) {
-  const deltams = Math.abs(date1.getTime() - date2.getTime())
-  return deltams / 1000
 }
 
 function useSecondsElapsed(startDate, stopDate) {

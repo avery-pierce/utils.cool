@@ -1,5 +1,4 @@
 import React from "react"
-import coolGradient from "./coolGradient"
 
 export default function CoolMobileFullscreenLayout({ children, style }) {
   return (
