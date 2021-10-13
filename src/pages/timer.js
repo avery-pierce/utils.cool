@@ -1,12 +1,34 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import CoolMobileFullscreenLayout from '../components/CoolMobileFullscreenLayout';
 import useCurrentDate from "../hooks/useCurrentDate"
 import CoolText from '../components/CoolText';
+import useLocalStorageState from '../hooks/useLocalStorageState';
+
+const dateSerilaizer = (date) => {
+  if (date === null) { return null }
+  return date.getTime()
+}
+
+const dateDeserializer = (ms) => {
+  return new Date(ms)
+}
+
+const arraySerializer = (elementSerializer) => {
+  return (array) => {
+    return array.map(elementSerializer)
+  }
+}
+
+const arrayDeserializer = (elementDeserializer) => {
+  return (array) => {
+    return array.map(elementDeserializer)
+  }
+}
 
 const Timer = () => {
-  const [startDate, setStartDate] = useState(null)
-  const [stopDate, setStopDate] = useState(null)
-  const [laps, setLaps] = useState([])
+  const [startDate, setStartDate] = useLocalStorageState("timer.startDate", null, dateSerilaizer, dateDeserializer)
+  const [stopDate, setStopDate] = useLocalStorageState("timer.stopDate", null, dateSerilaizer, dateDeserializer)
+  const [laps, setLaps] = useLocalStorageState("timer.laps", [], arraySerializer(dateSerilaizer), arrayDeserializer(dateDeserializer))
   
   const elapsed = useSecondsElapsed(startDate, stopDate)
   const onStart = useCallback(() => {
@@ -20,18 +42,15 @@ const Timer = () => {
   }, [])
 
   const onTapLap = useCallback(() => {
-    setLaps((prevLaps) => {
-      return [
-        ...prevLaps,
-        new Date()
-      ]
-    })
-  }, [])
+    const newLaps = [
+      ...laps,
+      new Date(),
+    ]
+    setLaps(newLaps)
+  }, [laps])
 
   const lapD = lapDeltas(startDate, laps)
-
   const isTimerRunning = (!!startDate && !stopDate)
-
   return (
     <CoolMobileFullscreenLayout>
       <div style={{ flexGrow: 1 }}>
