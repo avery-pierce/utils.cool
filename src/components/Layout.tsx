@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Link } from 'gatsby'
 
-const Layout = ({children}) => {
+const Layout = ({children}: {
+  children?: ReactNode,
+}) => {
   return (
     <>
       <nav>
