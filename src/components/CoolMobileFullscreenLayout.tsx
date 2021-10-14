@@ -1,6 +1,9 @@
-import React from "react"
+import React, { CSSProperties, ReactNode } from "react"
 
-export default function CoolMobileFullscreenLayout({ children, style }) {
+export default function CoolMobileFullscreenLayout({ children, style }: {
+  children?: ReactNode,
+  style?: CSSProperties,
+}) {
   return (
     <div style={{ 
       display: "flex", 
