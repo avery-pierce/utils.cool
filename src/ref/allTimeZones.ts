@@ -347,6 +347,6 @@ const ALL_TIME_ZONES = [
   'Pacific/Wallis',
   'Pacific/Apia',
   'Africa/Johannesburg'
-] as const
+]
 
 export default ALL_TIME_ZONES

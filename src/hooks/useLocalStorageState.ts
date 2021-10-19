@@ -19,7 +19,7 @@ export default function useLocalStorageState<S>(key: string, defaultValue: S, se
     removeLocalObject(key)
   }, [])
 
-  return [state, setLocalStorageState, resetLocalStorageState]
+  return [state, setLocalStorageState, resetLocalStorageState] as const
 }
 
 /// Deserialize the json object stored in local storage
